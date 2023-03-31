@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Form</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        label {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        div {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="my-form">
+        <label for="textfield">Enter your message:</label>
+        <input type="text" id="textffield" name="textfield" placeholder="Your message">
+        <button class="input-button" type="button" onclick="submitData()">Send</button>
+    </form>
+    <script>
+        function submitData() {
+            const form = document.getElementById('my-form');
+            var message = form.textfield.value;
+
+            fetch('/textfieldmessage', {
+                method: 'POST',
+                body: message
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    response.text().then(function (text) {
+                        const resultDiv = document.getElementById('result-message');
+                        resultDiv.textContent = text;
+                    });
+                });
+        }
+    </script>
+    <div id="result-message">
+
+    </div>
+</body>
+
+</html>
